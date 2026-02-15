@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Terminal, Code, GitCompare, ChevronRight, Menu, X } from 'lucide-react';
+import { Terminal, Code, GitCompare, ChevronRight, Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function DashboardLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
   const NavItem = ({ to, icon: Icon, label }) => (
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `nav-item ${isActive ? 'active' : ''}`
+        `nav-item flex items-center py-3 px-4 no-underline text-text-secondary rounded-md transition-all gap-3 ${isActive ? 'active' : ''}`
       }
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0.75rem 1rem',
-        textDecoration: 'none',
-        color: 'var(--text-secondary)',
-        borderRadius: 'var(--radius-md)',
-        transition: 'all 0.2s',
-        gap: '0.75rem'
-      }}
+      style={{}}
     >
       <Icon size={18} />
       <span style={{ fontWeight: 500 }}>{label}</span>
@@ -28,62 +22,52 @@ export default function DashboardLayout() {
   );
 
   return (
-    <div style={{ display: 'flex', height: '100vh', flexDirection: 'column' }}>
+
+    <div className="flex h-screen flex-col">
         {/* Retro Header */}
-        <header style={{
-          height: 'var(--header-height)',
-          borderBottom: '1px solid var(--border-color)',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 1.5rem',
-          background: 'var(--bg-primary)',
-          justifyContent: 'space-between',
-          zIndex: 60,
-          position: 'relative'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{
-              width: '32px', height: '32px', background: 'var(--accent-primary)',
-              borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#000'
-            }}>
+        <header className="h-[60px] border-b border-border flex items-center px-6 bg-bg-primary justify-between z-[60] relative">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-accent-primary rounded-[2px] flex items-center justify-center text-bg-primary">
               <Terminal size={20} strokeWidth={3} />
             </div>
-            <h1 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-              DEV<span style={{ color: 'var(--accent-primary)' }}>_DECK</span>
+            <h1 className="text-xl font-extrabold m-0 tracking-tighter">
+              DEV<span className="text-accent-primary">_DECK</span>
             </h1>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="mobile-only btn-secondary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            style={{ padding: '0.5rem', display: 'none' }} /* display none overridden by css class on mobile */
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="btn-secondary flex items-center justify-center p-2 border border-border bg-transparent text-text-primary cursor-pointer"
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden btn-secondary p-2 flex items-center justify-center"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </header>
 
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
+        <div className="flex flex-1 overflow-hidden relative">
           {/* Mobile Overlay */}
           <div
-            className={`app-overlay ${isMobileMenuOpen ? 'visible' : ''}`}
+            className={`fixed top-[60px] left-0 right-0 bottom-0 bg-black/50 z-40 transition-opacity duration-300 pointer-events-none md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0'}`}
             onClick={() => setIsMobileMenuOpen(false)}
           />
 
           {/* Sidebar */}
           <aside
-            className={`app-sidebar ${isMobileMenuOpen ? 'open' : ''}`}
-            style={{
-            width: '260px',
-            borderRight: '1px solid var(--border-color)',
-            padding: '1.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.5rem',
-            background: 'var(--bg-secondary)'
-          }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
+            className={`fixed top-[60px] left-0 bottom-0 w-[260px] z-50 transition-transform duration-300 ease-in-out border-r border-border p-6 flex flex-col gap-2 bg-bg-secondary
+            md:relative md:top-0 md:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0 shadow-xl' : '-translate-x-full'}`}
+          >
+            <div className="text-xs font-bold text-text-secondary uppercase mb-2 tracking-wider">
               Utilities
             </div>
             <div onClick={() => setIsMobileMenuOpen(false)}>
@@ -93,14 +77,14 @@ export default function DashboardLayout() {
               <NavItem to="/json" icon={GitCompare} label="JSON Formatter" />
             </div>
 
-            <div style={{ marginTop: 'auto', padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+            <div className="mt-auto p-4 bg-bg-tertiary rounded-md text-xs text-text-secondary">
               <div>Currently v1.0.0</div>
-              <div style={{ marginTop: '0.25rem' }}>Status: <span style={{ color: '#22c55e' }}>● Online</span></div>
+              <div className="mt-1">Status: <span className="text-green-500">● Online</span></div>
             </div>
           </aside>
 
           {/* Main Content Area */}
-          <main style={{ flex: 1, overflowY: 'auto', padding: '2rem', background: 'var(--bg-primary)' }}>
+          <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-bg-primary">
             <Outlet />
           </main>
         </div>

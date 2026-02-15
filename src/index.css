@@ -1,33 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  /* Colors - Retro Terminal Palette */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #000000;
-  --bg-tertiary: #111111;
+@layer base {
+  :root {
+    /* Light Mode (Default in :root) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f3f4f6;
+    --bg-tertiary: #e5e7eb;
 
-  --text-primary: #e5e5e5;
-  --text-secondary: #888888;
-  --text-tertiary: #555555;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-tertiary: #6b7280;
 
-  --accent-primary: #ededed; /* White accent for brutalist look */
-  --accent-secondary: #333333;
-  --accent-highlight: #00ff00; /* Terminal Green for highlights */
+    --accent-primary: #000000; /* Black accent for brutalist light */
+    --accent-secondary: #e5e7eb;
+    --accent-highlight: #16a34a; /* Green for highlights */
 
-  --border-color: #333333;
-  --border-focus: #cccccc;
+    --border-color: #e5e7eb;
+    --border-focus: #9ca3af;
 
-  /* Layout */
-  --header-height: 60px;
+    /* Layout */
+    --header-height: 60px;
 
-  /* Typography */
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'JetBrains Mono', monospace; /* Use mono everywhere for retro feel */
+    /* Typography */
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'JetBrains Mono', monospace;
 
-  /* Radius (Brutalist = Sharp or minimal) */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 0px;
+    /* Radius */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 0px;
+  }
+
+  /* Dark Mode (Class based) */
+  :root.dark {
+    /* Colors - Retro Terminal Palette */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #000000;
+    --bg-tertiary: #111111;
+
+    --text-primary: #e5e5e5;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+
+    --accent-primary: #ededed;
+    --accent-secondary: #333333;
+    --accent-highlight: #00ff00;
+
+    --border-color: #333333;
+    --border-focus: #cccccc;
+  }
 }
 
 body {
@@ -148,105 +171,14 @@ label {
 
 /* Nav Item States */
 .nav-item.active {
-  background: var(--bg-tertiary);
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-color);
+  @apply bg-bg-tertiary text-text-primary border border-border;
 }
 
 .nav-item:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  @apply bg-bg-tertiary text-text-primary;
 }
 
-/* Layout Grid Override */
-.layout-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0; /* Removing gap for border collapse look? Or keep distinct? Keeping gap for now */
-  gap: 1.5rem;
-  height: 100%;
-}
+/* Nav Item States */
 
-@media (min-width: 1024px) {
-  .layout-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-
-/* Responsive Utilities */
-.mobile-only {
-  display: none;
-}
-
-.desktop-only {
-  display: flex;
-}
-
-@media (max-width: 768px) {
-  .mobile-only {
-    display: flex;
-  }
-
-  .desktop-only {
-    display: none;
-  }
-
-  /* Responsive Layout Overrides */
-  .app-sidebar {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    bottom: 0;
-    width: 260px;
-    z-index: 50;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    border-right: 1px solid var(--border-color);
-  }
-
-  .app-sidebar.open {
-    transform: translateX(0);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  }
-
-  .app-overlay {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 40;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .app-overlay.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  main {
-    padding: 1rem !important;
-  }
-
-  .layout-grid {
-    height: auto;
-    gap: 1rem;
-  }
-
-  .scroll-col {
-    height: auto;
-    overflow-y: visible;
-    padding-bottom: 0;
-  }
-
-  .curl-input-panel {
-    height: 400px !important; /* Fixed height for input on mobile */
-    margin-bottom: 1rem;
-  }
-}
 
 
