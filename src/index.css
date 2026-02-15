@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Colors - Retro Terminal Palette */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #000000;
+  --bg-tertiary: #111111;
+
+  --text-primary: #e5e5e5;
+  --text-secondary: #888888;
+  --text-tertiary: #555555;
+
+  --accent-primary: #ededed; /* White accent for brutalist look */
+  --accent-secondary: #333333;
+  --accent-highlight: #00ff00; /* Terminal Green for highlights */
+
+  --border-color: #333333;
+  --border-focus: #cccccc;
+
+  /* Layout */
+  --header-height: 60px;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'JetBrains Mono', monospace; /* Use mono everywhere for retro feel */
+
+  /* Radius (Brutalist = Sharp or minimal) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 0px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border: 2px solid var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utilities - Brutalist Overhaul */
+.glass-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  /* No blur, solid look */
+}
+
+.container {
+  max-width: 100%;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  color: var(--bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+/* Inputs */
+input[type="text"], textarea, select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  width: 100%;
+  outline: none;
+  font-size: 0.8125rem;
+  transition: border-color 0.1s;
+}
+
+input[type="text"]:focus, textarea:focus, select:focus {
+  border-color: var(--border-focus);
+}
+
+label {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Nav Item States */
+.nav-item.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color);
+}
+
+.nav-item:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Layout Grid Override */
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0; /* Removing gap for border collapse look? Or keep distinct? Keeping gap for now */
+  gap: 1.5rem;
+  height: 100%;
+}
+
+@media (min-width: 1024px) {
+  .layout-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* Responsive Utilities */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: flex;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  /* Responsive Layout Overrides */
+  .app-sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    border-right: 1px solid var(--border-color);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+
+  .app-overlay {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .app-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  main {
+    padding: 1rem !important;
+  }
+
+  .layout-grid {
+    height: auto;
+    gap: 1rem;
+  }
+
+  .scroll-col {
+    height: auto;
+    overflow-y: visible;
+    padding-bottom: 0;
+  }
+
+  .curl-input-panel {
+    height: 400px !important; /* Fixed height for input on mobile */
+    margin-bottom: 1rem;
+  }
+}
+
+
