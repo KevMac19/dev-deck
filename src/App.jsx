@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CurlProvider } from './context/CurlContext';
 import { ThemeProvider } from './context/ThemeContext';
 import DashboardLayout from './layouts/DashboardLayout';
@@ -16,7 +16,7 @@ function App() {
   return (
     <ThemeProvider>
       <CurlProvider>
-        <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<DashboardLayout />}>
               <Route index element={<Navigate to="/curl" replace />} />
@@ -24,7 +24,7 @@ function App() {
               <Route path="json" element={<JsonTool />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </CurlProvider>
     </ThemeProvider>
   );
