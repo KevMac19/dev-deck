@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useCurl } from '../../../context/CurlContext';
+import { useCurl } from '../../../../context/CurlContext';
 import { Plus, Trash2, Code2, List } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +17,6 @@ export default function BodySection() {
   }, [bodyType]);
 
   // Sync KV local state when global body changes (only if in builder mode logic)
-  // For simplicity, we parse on mode switch to Builder
   const handleModeSwitch = (newMode) => {
     if (newMode === 'builder') {
       if (bodyType === 'json') {
@@ -29,7 +28,6 @@ export default function BodySection() {
           });
           setKvPairs(pairs);
         } catch (e) {
-          // Fallback or error?
           setKvPairs([]);
         }
       } else if (bodyType === 'x-www-form-urlencoded') {
@@ -88,24 +86,26 @@ export default function BodySection() {
   const removeMultipart = (id) => dispatch({ type: actions.REMOVE_MULTIPART, payload: id });
 
   const renderKvEditor = (data, onUpdate, onRemove, onAdd) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div className="flex flex-col gap-2">
       {data.map(item => (
-        <div key={item.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 32px', gap: '0.5rem', alignItems: 'center' }}>
+        <div key={item.id} className="grid grid-cols-[1fr_1fr_32px] gap-2 items-center">
           <input
             type="text"
             placeholder="Key"
             value={item.key}
             onChange={(e) => onUpdate(item.id, 'key', e.target.value)}
+            className="bg-bg-secondary border border-border text-text-primary rounded-sm p-2 outline-none text-xs focus:border-border-focus transition-colors"
           />
           <input
             type="text"
             placeholder="Value"
             value={item.value}
             onChange={(e) => onUpdate(item.id, 'value', e.target.value)}
+            className="bg-bg-secondary border border-border text-text-primary rounded-sm p-2 outline-none text-xs focus:border-border-focus transition-colors"
           />
           <button
             onClick={() => onRemove(item.id)}
-            style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem' }}
+            className="bg-transparent border-none text-pink-600 cursor-pointer flex items-center justify-center p-2 hover:text-pink-500 transition-colors"
           >
             <Trash2 size={16} />
           </button>
@@ -113,8 +113,7 @@ export default function BodySection() {
       ))}
       <button
         onClick={onAdd}
-        className="btn-secondary"
-        style={{ width: 'fit-content', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}
+        className="max-w-max flex items-center gap-2 py-1 px-2.5 bg-transparent border border-border text-text-secondary rounded-sm hover:border-text-primary hover:text-text-primary hover:bg-bg-tertiary transition-all text-xs font-bold uppercase cursor-pointer"
       >
         <Plus size={14} /> Add Row
       </button>
@@ -122,32 +121,30 @@ export default function BodySection() {
   );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-between items-center">
         <div>
-          <label style={{ marginBottom: 0 }}>Body Type</label>
+          <label className="block text-xs font-bold text-text-secondary mb-0 uppercase tracking-wider">
+            Body Type
+          </label>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className="flex gap-2">
            {/* Mode Toggle */}
            {bodyType !== 'multipart/form-data' && (
-             <div style={{ display: 'flex', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-sm)', padding: '2px' }}>
+             <div className="flex bg-bg-tertiary rounded-sm p-0.5">
                <button
                  onClick={() => handleModeSwitch('text')}
-                 style={{
-                   background: mode === 'text' ? 'var(--bg-secondary)' : 'transparent',
-                   color: mode === 'text' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                   border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem'
-                 }}
+                 className={`flex items-center gap-1 px-2 py-1 rounded-sm text-xs cursor-pointer border-none transition-colors ${
+                   mode === 'text' ? 'bg-bg-secondary text-text-primary shadow-sm' : 'bg-transparent text-text-secondary hover:text-text-primary'
+                 }`}
                >
                  <Code2 size={12} /> Text
                </button>
                <button
                  onClick={() => handleModeSwitch('builder')}
-                 style={{
-                   background: mode === 'builder' ? 'var(--bg-secondary)' : 'transparent',
-                   color: mode === 'builder' ? 'var(--text-primary)' : 'var(--text-secondary)',
-                   border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem'
-                 }}
+                 className={`flex items-center gap-1 px-2 py-1 rounded-sm text-xs cursor-pointer border-none transition-colors ${
+                   mode === 'builder' ? 'bg-bg-secondary text-text-primary shadow-sm' : 'bg-transparent text-text-secondary hover:text-text-primary'
+                 }`}
                >
                  <List size={12} /> Builder
                </button>
@@ -159,6 +156,7 @@ export default function BodySection() {
       <select
           value={bodyType || 'raw'}
           onChange={(e) => updateField({ bodyType: e.target.value })}
+          className="w-full bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm font-bold focus:border-border-focus transition-colors appearance-none"
       >
         <option value="raw">Raw</option>
         <option value="json">JSON</option>
@@ -178,16 +176,18 @@ export default function BodySection() {
 
       {/* Logic for Text Mode */}
       {bodyType !== 'multipart/form-data' && mode === 'text' && (
-        <div style={{ position: 'relative' }}>
+        <div className="relative">
           <textarea
             value={body || ''}
             onChange={(e) => updateField({ body: e.target.value })}
             placeholder={bodyType === 'json' ? '{\n  "key": "value"\n}' : 'key=value&foo=bar'}
-            style={{ minHeight: '150px' }}
+            className="w-full min-h-[150px] bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm font-mono focus:border-border-focus transition-colors resize-y leading-relaxed"
           />
           {bodyType === 'json' && (
              // JSON Hint
-             <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', fontSize: '0.75rem', color: 'var(--text-secondary)', background: 'var(--bg-tertiary)', padding: '2px 6px', borderRadius: '4px' }}>JSON</div>
+             <div className="absolute bottom-4 right-4 text-xs font-bold text-text-secondary bg-bg-tertiary px-2 py-0.5 rounded-sm uppercase tracking-wider pointer-events-none">
+               JSON
+             </div>
           )}
         </div>
       )}
@@ -195,7 +195,7 @@ export default function BodySection() {
       {/* Logic for Builder Mode (Standard) */}
       {bodyType !== 'multipart/form-data' && mode === 'builder' && (
         bodyType === 'raw' ? (
-          <div style={{ padding: '1rem', background: 'rgba(255,255,0,0.1)', borderRadius: 'var(--radius-md)', fontSize: '0.875rem' }}>
+          <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-sm text-sm text-yellow-500/90 font-medium">
             Builder mode not available for Raw text. Switch to text mode.
           </div>
         ) : (

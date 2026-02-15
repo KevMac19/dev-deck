@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCurl } from '../../../context/CurlContext';
+import { useCurl } from '../../../../context/CurlContext';
 
 export default function SettingsSection() {
   const { state, dispatch, actions } = useCurl();
@@ -13,22 +13,22 @@ export default function SettingsSection() {
   };
 
   const Checkbox = ({ label, checked, onChange, description }) => (
-    <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem', padding: '0.5rem 0' }}>
+    <label className="flex items-start gap-3 py-2 cursor-pointer hover:bg-bg-tertiary rounded-sm px-2 -mx-2 transition-colors">
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        style={{ marginTop: '0.25rem' }}
+        className="mt-1 accent-text-primary w-4 h-4 bg-bg-secondary border border-border rounded-sm custom-checkbox"
       />
       <div>
-        <div style={{ fontWeight: 500 }}>{label}</div>
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{description}</div>
+        <div className="font-bold text-sm text-text-primary">{label}</div>
+        <div className="text-xs text-text-secondary mt-0.5">{description}</div>
       </div>
-    </div>
+    </label>
   );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div className="flex flex-col gap-1">
       <Checkbox
         label="Insecure (-k)"
         checked={flags?.insecure}

@@ -1,7 +1,7 @@
 import React from 'react';
-import CurlInput from '../input/CurlInput';
-import VisualEditor from '../editor/VisualEditor';
-import CurlPreview from '../preview/CurlPreview';
+import CurlInput from './input/CurlInput';
+import VisualEditor from './editor/VisualEditor';
+import CurlPreview from './preview/CurlPreview';
 
 export default function CurlTool() {
   return (

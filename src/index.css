@@ -67,10 +67,6 @@ body {
   box-sizing: border-box;
 }
 
-input, textarea, select, button {
-  font-family: inherit;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -87,98 +83,3 @@ input, textarea, select, button {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-/* Utilities - Brutalist Overhaul */
-.glass-panel {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  /* No blur, solid look */
-}
-
-.container {
-  max-width: 100%;
-}
-
-.btn-primary {
-  background: var(--text-primary);
-  border: 1px solid var(--text-primary);
-  color: var(--bg-primary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-}
-
-.btn-primary:hover {
-  background: transparent;
-  color: var(--text-primary);
-}
-
-.btn-primary:active {
-  transform: translateY(2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.1s ease;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.btn-secondary:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-  background: var(--bg-tertiary);
-}
-
-/* Inputs */
-input[type="text"], textarea, select {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  border-radius: var(--radius-sm);
-  padding: 0.75rem;
-  width: 100%;
-  outline: none;
-  font-size: 0.8125rem;
-  transition: border-color 0.1s;
-}
-
-input[type="text"]:focus, textarea:focus, select:focus {
-  border-color: var(--border-focus);
-}
-
-label {
-  display: block;
-  font-size: 0.6875rem;
-  color: var(--text-secondary);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Nav Item States */
-.nav-item.active {
-  @apply bg-bg-tertiary text-text-primary border border-border;
-}
-
-.nav-item:hover {
-  @apply bg-bg-tertiary text-text-primary;
-}
-
-/* Nav Item States */
-
-
-

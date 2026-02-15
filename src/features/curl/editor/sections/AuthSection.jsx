@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCurl } from '../../../context/CurlContext';
+import { useCurl } from '../../../../context/CurlContext';
 
 export default function AuthSection() {
   const { state, dispatch, actions } = useCurl();
@@ -13,12 +13,15 @@ export default function AuthSection() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div className="flex flex-col gap-4">
       <div>
-        <label>Auth Type</label>
+        <label className="block text-xs font-bold text-text-secondary mb-2 uppercase tracking-wider">
+          Auth Type
+        </label>
         <select
           value={auth.type}
           onChange={(e) => updateAuth({ type: e.target.value })}
+          className="w-full bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm font-bold focus:border-border-focus transition-colors appearance-none"
         >
           <option value="none">No Auth</option>
           <option value="basic">Basic Auth</option>
@@ -27,23 +30,29 @@ export default function AuthSection() {
       </div>
 
       {auth.type === 'basic' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <label>Username</label>
+            <label className="block text-xs font-bold text-text-secondary mb-2 uppercase tracking-wider">
+              Username
+            </label>
             <input
               type="text"
               value={auth.username}
               onChange={(e) => updateAuth({ username: e.target.value })}
               placeholder="admin"
+              className="w-full bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm focus:border-border-focus transition-colors"
             />
           </div>
           <div>
-            <label>Password</label>
+            <label className="block text-xs font-bold text-text-secondary mb-2 uppercase tracking-wider">
+              Password
+            </label>
             <input
               type="text" // using text for visibility in editor, could be password
               value={auth.password}
               onChange={(e) => updateAuth({ password: e.target.value })}
               placeholder="password"
+              className="w-full bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm focus:border-border-focus transition-colors"
             />
           </div>
         </div>
@@ -51,13 +60,15 @@ export default function AuthSection() {
 
       {auth.type === 'bearer' && (
         <div>
-          <label>Token</label>
+          <label className="block text-xs font-bold text-text-secondary mb-2 uppercase tracking-wider">
+            Token
+          </label>
           <input
             type="text"
             value={auth.token}
             onChange={(e) => updateAuth({ token: e.target.value })}
             placeholder="eyJh..."
-            style={{ fontFamily: 'var(--font-mono)' }}
+            className="w-full bg-bg-secondary border border-border text-text-primary rounded-sm p-3 outline-none text-sm font-mono focus:border-border-focus transition-colors"
           />
         </div>
       )}

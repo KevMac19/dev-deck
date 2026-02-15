@@ -6,7 +6,11 @@ import DashboardLayout from './layouts/DashboardLayout';
 import CurlTool from './features/curl/CurlTool';
 
 // Placeholder for other tool
-const JsonTool = () => <div className="glass-panel p-4">JSON Formatter (Proprietary Coming Soon)</div>;
+const JsonTool = () => (
+  <div className="bg-bg-secondary border border-border rounded-sm p-4 text-text-primary font-mono text-sm">
+    JSON Formatter (Proprietary Coming Soon)
+  </div>
+);
 
 function App() {
   return (

@@ -1,16 +1,81 @@
-# React + Vite
+# DEV_DECK: Advanced cURL Editor & Developer Tools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, retro-styled developer productivity suite featuring a bidirectional cURL editor, authentication support, and code generation capabilities. Built with **React**, **Vite**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+### 🛠️ cURL Editor
+- **Bidirectional Editing**: Paste raw cURL commands to visualize them, or use the visual builder to generate commands.
+- **Robust Parsing**: Accurately parses Method, URL, Headers, Body, and Auth from raw strings.
+- **Authentication Support**:
+  - Basic Auth (Username/Password)
+  - Bearer Token
+- **Body Management**:
+  - Support for `application/json`, `x-www-form-urlencoded`, and `multipart/form-data`.
+  - **Key-Value Builder**: Visually edit JSON and Form data without worrying about syntax.
+- **Request Flags**: Toggles for common flags like `--insecure` (`-k`), `--location` (`-L`), and `--compressed`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎨 Retro / Brutalist Design
+- **Theme**: High-contrast dark mode inspired by terminal aesthetics and retro computing.
+- **Typography**: Uses `JetBrains Mono` for a developer-first feel.
+- **Tech Stack**:
+  - **Framework**: React + Vite
+  - **Styling**: Tailwind CSS (fully configured with design tokens)
+  - **Icons**: Lucide React
+  - **Routing**: React Router DOM (Multi-tool architecture)
 
-## Expanding the ESLint configuration
+## 📂 Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── features/           # Feature-based modules
+│   └── curl/           # cURL Tool Logic
+│       ├── editor/     # Visual Builder Components
+│       ├── input/      # Raw Input Components
+│       └── preview/    # Code Preview Components
+├── components/         # Shared UI Components
+├── context/            # Global State (CurlContext, ThemeContext)
+├── layouts/            # Layout wrappers (DashboardLayout)
+└── utils/              # Core Logic (curlManager.js)
+```
+
+## ⚡ Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Installation
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/dev-deck.git
+    cd dev-deck
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    # or
+    yarn
+    ```
+
+3.  **To Start Development Server**:
+    ```bash
+    npm run dev
+    ```
+
+4.  **To Build for Production**:
+    ```bash
+    npm run build
+    ```
+
+## 🔮 Future Roadmap
+- [ ] **Code Generation**: Convert cURL to Python, JavaScript, Go, etc.
+- [ ] **Request History**: Local storage persistence for recent requests.
+- [ ] **JSON Formatter**: Dedicated tool for validating and formatting JSON.
+
+## 📄 License
+MIT
